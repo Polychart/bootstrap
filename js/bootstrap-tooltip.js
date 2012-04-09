@@ -105,6 +105,7 @@
         , actualHeight
         , placement
         , tp
+        , helper
 
       if (this.hasContent() && this.enabled) {
         $tip = this.tip()
@@ -120,10 +121,16 @@
 
         inside = /in/.test(placement)
 
+        if (!this.options.helper) {
+          helper = document.body
+        } else {
+          helper = $(this.options.helper)
+        }
+
         $tip
           .remove()
           .css({ top: 0, left: 0, display: 'block' })
-          .appendTo(inside ? this.$element : document.body)
+          .appendTo(inside ? this.$element : helper)
 
         pos = this.getPosition(inside)
 
