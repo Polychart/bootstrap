@@ -161,7 +161,12 @@
 
   , setContent: function () {
       var $tip = this.tip()
-      $tip.find('.tooltip-inner').html(this.getTitle())
+      var title = this.getTitle();
+      if (title.jquery) {
+        $tip.find('.tooltip-inner').empty().append(title)
+      } else {
+        $tip.find('.tooltip-inner').html(title)
+      }
       $tip.removeClass('fade in top bottom left right')
     }
 
@@ -212,8 +217,10 @@
 
       title = $e.attr('data-original-title')
         || (typeof o.title == 'function' ? o.title.call($e[0]) :  o.title)
-
-      title = (title || '').toString().replace(/(^\s*|\s*$)/, "")
+      // title can be DOM.
+      if (!(title && title.jquery)) {
+        title = (title || '').toString().replace(/(^\s*|\s*$)/, "")
+      }
 
       return title
     }
