@@ -128,7 +128,7 @@
         }
 
         $tip
-          .remove()
+          .detach()
           .css({ top: 0, left: 0, display: 'block' })
           .appendTo(inside ? this.$element : helper)
 
@@ -163,7 +163,7 @@
       var $tip = this.tip()
       var title = this.getTitle();
       if (title.jquery) {
-        $tip.find('.tooltip-inner').empty().append(title)
+        $tip.find('.tooltip-inner').append(title)
       } else {
         $tip.find('.tooltip-inner').html(title)
       }
@@ -178,18 +178,18 @@
 
       function removeWithAnimation() {
         var timeout = setTimeout(function () {
-          $tip.off($.support.transition.end).remove()
+          $tip.off($.support.transition.end).detach()
         }, 500)
 
         $tip.one($.support.transition.end, function () {
           clearTimeout(timeout)
-          $tip.remove()
+          $tip.detach()
         })
       }
 
       $.support.transition && this.$tip.hasClass('fade') ?
         removeWithAnimation() :
-        $tip.remove()
+        $tip.detach()
     }
 
   , fixTitle: function () {
