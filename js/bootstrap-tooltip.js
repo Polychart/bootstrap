@@ -151,6 +151,10 @@
             tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width}
             break
         }
+        // [polychart]
+        tp.top = Math.max(10, tp.top)
+        tp.left = Math.max(10, tp.left)
+        // [/polychart]
 
         $tip
           .css(tp)
